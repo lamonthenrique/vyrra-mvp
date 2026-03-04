@@ -1,12 +1,12 @@
 "use client";
 
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "@/lib/supabaseClient";
 
-export default function Home() {
+export default function Page() {
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: "http://localhost:3000" },
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
 
     if (error) alert(error.message);
@@ -16,9 +16,7 @@ export default function Home() {
     <main className="min-h-screen flex items-center justify-center bg-black text-white p-6">
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6">
         <h1 className="text-3xl font-semibold">VYRRA</h1>
-        <p className="mt-2 text-white/70">
-          Seu maior inimigo é a versão de ontem.
-        </p>
+        <p className="mt-2 text-white/70">Seu maior inimigo é a versão de ontem.</p>
 
         <button
           onClick={signInWithGoogle}
